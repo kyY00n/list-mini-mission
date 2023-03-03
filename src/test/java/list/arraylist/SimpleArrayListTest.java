@@ -17,7 +17,7 @@ class SimpleArrayListTest {
     void setUp() {
         arrayList = new SimpleArrayList();
     }
-    
+
     @DisplayName("add는")
     @Nested
     class AddTest {
@@ -72,4 +72,28 @@ class SimpleArrayListTest {
         }
     }
 
+    @DisplayName("size는")
+    @Nested
+    class SizeTest {
+        @DisplayName("아무것도 넣지 않았을 때 0이다.")
+        @Test
+        void returnZeroWhenInitialized() {
+            //given
+            //when
+            //then
+            assertThat(arrayList.size()).isEqualTo(0);
+        }
+
+        @DisplayName("값을 추가한 뒤 사이즈가 늘어난다.")
+        @Test
+        void sizeAfterAddition() {
+            //given
+            arrayList.add("hihi");
+            arrayList.add("hihi");
+            arrayList.add("hihi");
+            //when
+            //then
+            assertThat(arrayList.size()).isEqualTo(3);
+        }
+    }
 }
