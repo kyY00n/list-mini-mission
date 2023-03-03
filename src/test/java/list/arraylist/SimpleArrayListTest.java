@@ -117,4 +117,29 @@ class SimpleArrayListTest {
             assertThat(arrayList.size()).isEqualTo(0);
         }
     }
+
+    @DisplayName("isEmpty는")
+    @Nested
+    class IsEmptyTest {
+        @DisplayName("아무것도 넣지 않았을 때 true를 반환한다.")
+        @Test
+        void returnTrue() {
+            //given
+            //when
+            boolean empty = arrayList.isEmpty();
+            //then
+            assertThat(empty).isTrue();
+        }
+
+        @DisplayName("요소를 넣은 후에는 false를 반환한다.")
+        @Test
+        void returnFalse() {
+            //given
+            arrayList.add("hihi");
+            //when
+            boolean empty = arrayList.isEmpty();
+            //then
+            assertThat(empty).isFalse();
+        }
+    }
 }
