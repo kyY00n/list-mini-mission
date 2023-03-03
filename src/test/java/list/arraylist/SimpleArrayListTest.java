@@ -95,5 +95,26 @@ class SimpleArrayListTest {
             //then
             assertThat(arrayList.size()).isEqualTo(3);
         }
+
+        @DisplayName("capacity까지 추가해도 사이즈를 제대로 계산한다.")
+        @Test
+        void sizeTilCapacity() {
+            //given
+            for (int __ = 0; __ < 10; __++) {
+                arrayList.add("hihi");
+            }
+            //when
+            //then
+            assertThat(arrayList.size()).isEqualTo(10);
+        }
+
+        @DisplayName("아무것도 추가하지 않으면 0을 반환한다.")
+        @Test
+        void returnZero() {
+            //given
+            //when
+            //then
+            assertThat(arrayList.size()).isEqualTo(0);
+        }
     }
 }

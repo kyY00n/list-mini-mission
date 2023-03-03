@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class SimpleArrayList implements SimpleList {
 
     private static final int DEFAULT_CAPACITY = 10;
+
     String[] array = new String[DEFAULT_CAPACITY];
     private int capacity = DEFAULT_CAPACITY;
 
@@ -55,7 +56,15 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public int size() {
-        return 0;
+        int index = 0;
+        while (index < capacity && isNotNullIndexOf(index)) {
+            index++;
+        }
+        return index;
+    }
+
+    private boolean isNotNullIndexOf(int index) {
+        return array[index] != null;
     }
 
     @Override
