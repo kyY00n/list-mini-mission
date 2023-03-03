@@ -46,7 +46,7 @@ class SimpleArrayListTest {
             assertThat(contains).isTrue();
         }
 
-        @DisplayName("추가한 요소에 대해서 true를 반환한다.")
+        @DisplayName("추가한 요소에 대해서 false를 반환한다.")
         @Test
         void returnFalseWhen() {
             //given
