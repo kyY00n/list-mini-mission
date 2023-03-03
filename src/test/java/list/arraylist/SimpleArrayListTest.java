@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class SimpleArrayListTest {
@@ -29,6 +30,31 @@ class SimpleArrayListTest {
                 simpleArrayList.add("hi");
             }
         });
+    }
+
+    @DisplayName("contains는")
+    @Nested
+    class ContainsTest {
+        @DisplayName("추가한 요소에 대해서 true를 반환한다.")
+        @Test
+        void returnTrueWhenAddedElement() {
+            //given
+            simpleArrayList.add("hi");
+            //when
+            boolean contains = simpleArrayList.contains("hi");
+            //then
+            assertThat(contains).isTrue();
+        }
+
+        @DisplayName("추가한 요소에 대해서 true를 반환한다.")
+        @Test
+        void returnFalseWhen() {
+            //given
+            //when
+            boolean contains = simpleArrayList.contains("hey");
+            //then
+            assertThat(contains).isFalse();
+        }
     }
 
 }
