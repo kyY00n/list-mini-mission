@@ -17,29 +17,34 @@ class SimpleArrayListTest {
     void setUp() {
         arrayList = new SimpleArrayList();
     }
+    
+    @DisplayName("add는")
+    @Nested
+    class AddTest {
+        @DisplayName("배열에 값을 더할 수 있다.")
+        @Test
+        void add() {
+            assertThat(arrayList.add("hi")).isTrue();
+        }
 
-    @DisplayName("배열에 값을 더할 수 있다.")
-    @Test
-    void add() {
-        assertThat(arrayList.add("hi")).isTrue();
-    }
+        @DisplayName("배열에 값을 계속 더할 수 있다.")
+        @Test
+        void keepAdding() {
+            assertDoesNotThrow(() -> {
+                for (int __ = 0; __ < 100; __++) {
+                    arrayList.add("hi");
+                }
+            });
+        }
 
-    @DisplayName("배열에 값을 계속 더할 수 있다.")
-    @Test
-    void keepAdding() {
-        assertDoesNotThrow(() -> {
-            for (int __ = 0; __ < 100; __++) {
-                arrayList.add("hi");
-            }
-        });
-    }
+        @DisplayName("값을 추가하면 그 값이 포함되어있다.")
+        @ParameterizedTest
+        @ValueSource(strings = {"fourth", "fifth", "sixth"})
+        void containsAfterAddition(String element) {
+            arrayList.add(element);
+            assertThat(arrayList.contains(element)).isTrue();
+        }
 
-    @DisplayName("값을 추가하면 그 값이 포함되어있다.")
-    @ParameterizedTest
-    @ValueSource(strings = {"fourth", "fifth", "sixth"})
-    void containsAfterAddition(String element) {
-        arrayList.add(element);
-        assertThat(arrayList.contains(element)).isTrue();
     }
 
     @DisplayName("contains는")
