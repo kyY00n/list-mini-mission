@@ -7,19 +7,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class SimpleArrayListTest {
-    SimpleArrayList simpleArrayList;
+    SimpleArrayList arrayList;
 
     @BeforeEach
     void setUp() {
-        simpleArrayList = new SimpleArrayList();
+        arrayList = new SimpleArrayList();
     }
 
     @DisplayName("배열에 값을 더할 수 있다.")
     @Test
     void add() {
-        assertThat(simpleArrayList.add("hi")).isTrue();
+        assertThat(arrayList.add("hi")).isTrue();
     }
 
     @DisplayName("배열에 값을 계속 더할 수 있다.")
@@ -27,9 +29,17 @@ class SimpleArrayListTest {
     void keepAdding() {
         assertDoesNotThrow(() -> {
             for (int __ = 0; __ < 100; __++) {
-                simpleArrayList.add("hi");
+                arrayList.add("hi");
             }
         });
+    }
+
+    @DisplayName("값을 추가하면 그 값이 포함되어있다.")
+    @ParameterizedTest
+    @ValueSource(strings = {"fourth", "fifth", "sixth"})
+    void containsAfterAddition(String element) {
+        arrayList.add(element);
+        assertThat(arrayList.contains(element)).isTrue();
     }
 
     @DisplayName("contains는")
@@ -39,9 +49,9 @@ class SimpleArrayListTest {
         @Test
         void returnTrueWhenAddedElement() {
             //given
-            simpleArrayList.add("hi");
+            arrayList.add("hi");
             //when
-            boolean contains = simpleArrayList.contains("hi");
+            boolean contains = arrayList.contains("hi");
             //then
             assertThat(contains).isTrue();
         }
@@ -51,7 +61,7 @@ class SimpleArrayListTest {
         void returnFalseWhen() {
             //given
             //when
-            boolean contains = simpleArrayList.contains("hey");
+            boolean contains = arrayList.contains("hey");
             //then
             assertThat(contains).isFalse();
         }
