@@ -1,8 +1,10 @@
 package list.arraylist;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,6 +66,22 @@ public class ListStudyTest {
     void setElement() {
         values.set(0, "changed");
         assertThat(values.get(0)).isEqualTo("changed");
+    }
+
+    @DisplayName("아무것도 없을 때 예외를 반환한다.")
+    @Test
+    void setElementForEmptyList() {
+        List<String> values = new ArrayList<>();
+        assertThatThrownBy(() -> values.set(0, "hi"))
+                .isInstanceOf(IndexOutOfBoundsException.class);
+    }
+
+    @DisplayName("null 로 설정할 때")
+    @Test
+    void setToNull() {
+        String result = values.set(0, null);
+        System.out.println(result);
+        System.out.println(values.get(0) == null);
     }
 
     @DisplayName("포함된 요소값을 넣으면 삭제가 되고 true를 반환한다.")
