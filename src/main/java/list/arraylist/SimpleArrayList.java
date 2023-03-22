@@ -1,6 +1,7 @@
 package list.arraylist;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class SimpleArrayList implements SimpleList {
 
@@ -36,7 +37,14 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public String get(int index) {
-        return null;
+        if (index >= capacity || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        String value = array[index];
+        if (Objects.isNull(value)) {
+            throw new IndexOutOfBoundsException();
+        }
+        return value;
     }
 
     @Override

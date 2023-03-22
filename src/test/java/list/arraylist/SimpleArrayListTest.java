@@ -1,6 +1,7 @@
 package list.arraylist;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -140,6 +141,36 @@ class SimpleArrayListTest {
             boolean empty = arrayList.isEmpty();
             //then
             assertThat(empty).isFalse();
+        }
+    }
+
+    @DisplayName("get은")
+    @Nested
+    class GetTest {
+        @DisplayName("올바르지 않은 인덱스로 get을 하는 경우")
+        @Test
+        void whenInvalidIndex() {
+            // java.lang.IndexOutOfBoundsException: Index 100 out of bounds for length "currentLength"
+            assertThatThrownBy(() -> arrayList.get(100))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
+        }
+
+        @DisplayName("음수를 인자로 받는 경우")
+        @Test
+        void whenNegative() {
+            assertThatThrownBy(() -> arrayList.get(-1))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
+        }
+
+        @DisplayName("요소를 가져올 수 있다.")
+        @Test
+        void multiple() {
+            //given
+            arrayList.add("hihi");
+            //when
+            String getResult = arrayList.get(0);
+            //then
+            assertThat(getResult).isEqualTo("hihi");
         }
     }
 }
