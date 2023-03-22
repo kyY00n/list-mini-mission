@@ -1,7 +1,6 @@
 package list.arraylist;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class SimpleArrayList implements SimpleList {
 
@@ -9,15 +8,11 @@ public class SimpleArrayList implements SimpleList {
 
     String[] array = new String[DEFAULT_CAPACITY];
     private int capacity = DEFAULT_CAPACITY;
+    private int size = 0;
 
     @Override
     public boolean add(String value) {
-        for (int i = 0; i < capacity; i++) {
-            if (array[i] == null) {
-                array[i] = value;
-                return true;
-            }
-        }
+        array[size++] = value;
         int newCapacity = (int) (capacity * 1.5);
         array = Arrays.copyOf(array, newCapacity);
         array[capacity] = value;
@@ -32,24 +27,26 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public String set(int index, String value) {
-        return null;
+        if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        String oldValue = array[index];
+        array[index] = value;
+        return oldValue;
     }
 
     @Override
     public String get(int index) {
-        if (index >= capacity || index < 0) {
+        if (size <= index || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         String value = array[index];
-        if (Objects.isNull(value)) {
-            throw new IndexOutOfBoundsException();
-        }
         return value;
     }
 
     @Override
     public boolean contains(String value) {
-        for (int index = 0; index < capacity && array[index] != null; index++) {
+        for (int index = 0; index < size; index++) {
             if (array[index].equals(value)) {
                 return true;
             }
@@ -64,15 +61,7 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public int size() {
-        int index = 0;
-        while (index < capacity && isNotNullIndexOf(index)) {
-            index++;
-        }
-        return index;
-    }
-
-    private boolean isNotNullIndexOf(int index) {
-        return array[index] != null;
+        return size;
     }
 
     @Override

@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -26,6 +28,14 @@ class SimpleArrayListTest {
         @Test
         void add() {
             assertThat(arrayList.add("hi")).isTrue();
+        }
+
+
+        @DisplayName("사이즈가 늘어난다.")
+        @Test
+        void addAndThenSize() {
+            arrayList.add("hihi");
+            assertThat(arrayList).extracting("size").isEqualTo(1);
         }
 
         @DisplayName("배열에 값을 계속 더할 수 있다.")
@@ -171,6 +181,42 @@ class SimpleArrayListTest {
             String getResult = arrayList.get(0);
             //then
             assertThat(getResult).isEqualTo("hihi");
+        }
+    }
+
+    @DisplayName("set은")
+    @Nested
+    class SetTest {
+        @DisplayName("올바르지 않은 인덱스일 경우 예외가 발생한다.")
+        @Test
+        void throwExceptionWhenIndexOutOfRange() {
+            assertThatThrownBy(() -> arrayList.set(-1, "츄잉껌"))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
+        }
+
+        @DisplayName("요소를 변경할 수 있다.")
+        @Test
+        void setElement() {
+            arrayList.add("hihi");
+            arrayList.set(0, "changed");
+            assertThat(arrayList.get(0)).isEqualTo("changed");
+        }
+
+        @DisplayName("요소를 변경할 수 있다.")
+        @Test
+        void setElementToNull() {
+            arrayList.add("hihi");
+            arrayList.set(0, null);
+            assertThat(arrayList.size()).isEqualTo(1);
+            assertThat(arrayList.get(0)).isNull();
+        }
+
+        @DisplayName("아무것도 없을 때 예외를 반환한다.")
+        @Test
+        void setElementForEmptyList() {
+            List<String> values = new ArrayList<>();
+            assertThatThrownBy(() -> values.set(0, "hi"))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
         }
     }
 }
