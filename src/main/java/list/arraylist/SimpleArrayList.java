@@ -40,8 +40,7 @@ public class SimpleArrayList implements SimpleList {
         if (size <= index || index < 0) {
             throw new IndexOutOfBoundsException();
         }
-        String value = array[index];
-        return value;
+        return array[index];
     }
 
     @Override
@@ -71,7 +70,22 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public boolean remove(String value) {
-        return false;
+        int targetIndex;
+        int index;
+        for (index = 0; index < size; index++) {
+            if (array[index].equals(value)) {
+                break;
+            }
+        }
+        if (index == size) {
+            return false;
+        }
+        targetIndex = index;
+        for (int next = targetIndex; next < size; next++) {
+            array[next] = array[next + 1];
+        }
+        array[--size] = null;
+        return true;
     }
 
     @Override

@@ -219,4 +219,35 @@ class SimpleArrayListTest {
                     .isInstanceOf(IndexOutOfBoundsException.class);
         }
     }
+
+    @DisplayName("remove(String)은")
+    @Nested
+    class RemoveByValueTest {
+        @DisplayName("포함된 요소값을 넣으면 삭제가 되고 true를 반환한다.")
+        @Test
+        void removeExistingElement() {
+            arrayList.add("first");
+            assertThat(arrayList.remove("first")).isTrue();
+        }
+
+        @DisplayName("포함되지 않은 요소값을 넣으면 false를 반환한다.")
+        @Test
+        void removeElement() {
+            arrayList.add("hihi");
+            assertThat(arrayList.remove("hi")).isFalse();
+        }
+
+        @DisplayName("실행된 뒤 사이즈가 변한다.")
+        @Test
+        void andThenSizeDecrease() {
+            //given
+            arrayList.add("hihi");
+            arrayList.add("byebye");
+            //when
+            arrayList.remove("hihi");
+            //then
+            assertThat(arrayList.size()).isEqualTo(1);
+        }
+
+    }
 }
