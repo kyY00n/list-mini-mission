@@ -89,8 +89,16 @@ public class SimpleArrayList implements SimpleList {
     }
 
     @Override
-    public String remove(int index) {
-        return null;
+    public String remove(int targetIndex) {
+        if (targetIndex < 0 || targetIndex >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        String removed = array[targetIndex];
+        for (int index = targetIndex; index < size - 1; index++) {
+            array[targetIndex] = array[targetIndex + 1];
+        }
+        size -= 1;
+        return removed;
     }
 
     @Override

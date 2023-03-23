@@ -250,4 +250,54 @@ class SimpleArrayListTest {
         }
 
     }
+
+    @DisplayName("remove(int)는")
+    @Nested
+    class RemoveByIndexTest {
+        @DisplayName("삭제된 값을 반환한다.")
+        @Test
+        void removeExistingElement() {
+            //given
+            arrayList.add("first");
+            //when
+            //then
+            assertThat(arrayList.remove(0)).isEqualTo("first");
+        }
+
+        @DisplayName("인자 범위가 올바르지 않은 경우 예외가 발생한다.")
+        @Test
+        void removeElement() {
+            //given
+            //when
+            //then
+            assertThatThrownBy(() -> arrayList.remove(0))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
+        }
+
+        @DisplayName("실행된 뒤 사이즈가 변한다.")
+        @Test
+        void andThenSizeDecrease() {
+            //given
+            arrayList.add("hihi");
+            arrayList.add("byebye");
+            //when
+            arrayList.remove(0);
+            //then
+            assertThat(arrayList.size()).isEqualTo(1);
+        }
+
+        @DisplayName("실행된 뒤 다른 원소들이 없어지지 않는다.")
+        @Test
+        void doesntRemoveOtherElements() {
+            //given
+            arrayList.add("byebye");
+            arrayList.add("heyhey");
+            arrayList.add("rosie");
+            //when
+            arrayList.remove(1);
+            //then
+            assertThat(arrayList.contains("byebye")).isTrue();
+            assertThat(arrayList.contains("rosie")).isTrue();
+        }
+    }
 }
