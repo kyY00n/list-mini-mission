@@ -321,4 +321,56 @@ class SimpleArrayListTest {
             assertThat(arrayList.contains("rosie")).isTrue();
         }
     }
+
+    @DisplayName("add(int, String)은")
+    @Nested
+    class AddWithIndex {
+        @DisplayName("올바른 위치에 값을 추가한다.")
+        @Test
+        void addProperAtPosition() {
+            //given
+            arrayList.add("hihi");
+            //when
+            arrayList.add(0, "byebye");
+            //then
+            assertThat(arrayList.get(0)).isEqualTo("byebye");
+        }
+
+        @DisplayName("인덱스 범위가 올바르지 않을 경우 예외가 발생한다.")
+        @ParameterizedTest
+        @ValueSource(ints = {-1, -100, 1000, 10})
+        void throwExceptionForInvalidIndex(int invalidIndex) {
+            //given
+            arrayList.add("hihi");
+            //when
+            //then
+            assertThatThrownBy(() -> arrayList.add(invalidIndex, "byebye"))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
+        }
+
+        @DisplayName("null을 추가할 수도 있다.")
+        @Test
+        void addNull() {
+            //given
+            //when
+            arrayList.add(0, null);
+            //then
+            assertThat(arrayList.get(0)).isNull();
+        }
+
+        @DisplayName("원래 있던 요소들이 순서대로 포함되어있다.")
+        @Test
+        void doesntAffectOtherElementsOrder() {
+            //given
+            arrayList.add("first");
+            arrayList.add("second");
+            arrayList.add("third");
+            //when
+            arrayList.add(1, "hi~");
+            //then
+            assertThat(arrayList.get(0)).isEqualTo("first");
+            assertThat(arrayList.get(2)).isEqualTo("second");
+            assertThat(arrayList.get(3)).isEqualTo("third");
+        }
+    }
 }

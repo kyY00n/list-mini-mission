@@ -26,8 +26,18 @@ public class SimpleArrayList implements SimpleList {
     }
 
     @Override
-    public void add(int index, String value) {
-
+    public void add(int targetIndex, String value) {
+        if (targetIndex < 0 || targetIndex > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (array.length == size) {
+            applyNewCapacity();
+        }
+        for (int index = size - 1; index >= targetIndex; index--) {
+            array[index + 1] = array[index];
+        }
+        array[targetIndex] = value;
+        size += 1;
     }
 
     @Override
