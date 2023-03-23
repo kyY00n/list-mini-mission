@@ -414,4 +414,52 @@ class SimpleArrayListTest {
             assertThat(firstHiIndex).isEqualTo(0);
         }
     }
+
+    @DisplayName("clear는")
+    @Nested
+    class Clear {
+        @DisplayName("clear 이후 get을 하면 예외가 발생한다.")
+        @ParameterizedTest
+        @ValueSource(ints = {0, 1, 2})
+        void throwExceptionForGetElement(int index) {
+            //given
+            arrayList.add("hih");
+            arrayList.add("be");
+            arrayList.add("wuga");
+            //when
+            arrayList.clear();
+            //then
+            assertThatThrownBy(() -> arrayList.get(index))
+                    .isInstanceOf(IndexOutOfBoundsException.class);
+        }
+
+        @DisplayName("clear를 하면 size가 0이 된다.")
+        @Test
+        void makeSizeZero() {
+            //given
+            arrayList.add("hih");
+            arrayList.add("be");
+            arrayList.add("wuga");
+            //when
+            arrayList.clear();
+            //then
+            assertThat(arrayList.size()).isZero();
+        }
+
+        @DisplayName("모든 배열의 요소가 null이 된다.")
+        @ParameterizedTest
+        @ValueSource(ints = {3, 100, 200, 123, 500})
+        void makeEveryElementNull(int size) {
+            //given
+            while (size-- > 0) {
+                arrayList.add("hello");
+            }
+            //when
+            arrayList.clear();
+            //then
+            assertThat(arrayList)
+                    .extracting("array", InstanceOfAssertFactories.array(String[].class))
+                    .containsOnlyNulls();
+        }
+    }
 }

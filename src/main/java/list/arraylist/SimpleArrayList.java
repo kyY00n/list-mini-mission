@@ -123,6 +123,9 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public void clear() {
-
+        for (int index = 0; index < size; index++) {
+            array[index] = null;
+        }
+        size = 0;
     }
 }
