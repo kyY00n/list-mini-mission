@@ -70,7 +70,12 @@ public class SimpleArrayList implements SimpleList {
 
     @Override
     public int indexOf(String value) {
-        return 0;
+        for (int index = 0; index < size; index++) {
+            if (array[index].equals(value)) {
+                return index;
+            }
+        }
+        return -1;
     }
 
     @Override

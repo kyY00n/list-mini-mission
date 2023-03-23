@@ -373,4 +373,45 @@ class SimpleArrayListTest {
             assertThat(arrayList.get(3)).isEqualTo("third");
         }
     }
+
+    @DisplayName("indexOf(String)는")
+    @Nested
+    class IndexOf {
+        @DisplayName("올바른 인덱스를 반환한다.")
+        @Test
+        void returnProperIndex() {
+            //given
+            arrayList.add("hey");
+            arrayList.add("hi");
+            //when
+            int hiIndex = arrayList.indexOf("hi");
+            //then
+            assertThat(hiIndex).isEqualTo(1);
+        }
+
+        @DisplayName("존재하지 않는 값일 경우 -1을 반환한다.")
+        @Test
+        void returnMinusOne() {
+            //given
+            arrayList.add("hey");
+            arrayList.add("hi");
+            //when
+            int byeIndex = arrayList.indexOf("bye");
+            //then
+            assertThat(byeIndex).isEqualTo(-1);
+        }
+
+        @DisplayName("여러 개를 가질 경우 가장 작은 인덱스를 반환한다.")
+        @Test
+        void returnMinimumIndex() {
+            //given
+            arrayList.add("hi");
+            arrayList.add("hi");
+            arrayList.add("hi");
+            //when
+            int firstHiIndex = arrayList.indexOf("hi");
+            //then
+            assertThat(firstHiIndex).isEqualTo(0);
+        }
+    }
 }
