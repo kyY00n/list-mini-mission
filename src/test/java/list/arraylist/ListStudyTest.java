@@ -129,4 +129,18 @@ public class ListStudyTest {
         values.add(0, null);
         assertThat(values.get(0)).isNull();
     }
+
+    @DisplayName("여러 개를 가질 경우 가장 작은 인덱스를 반환한다.")
+    @Test
+    void returnMinimumIndex() {
+        //given
+        List<String> values = new ArrayList<>();
+        values.add("hi");
+        values.add("hi");
+        values.add("hi");
+        //when
+        int firstHiIndex = values.indexOf("hi");
+        //then
+        assertThat(firstHiIndex).isEqualTo(0);
+    }
 }
