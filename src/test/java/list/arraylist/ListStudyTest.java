@@ -122,4 +122,11 @@ public class ListStudyTest {
         assertThatThrownBy(() -> values.remove(10))
                 .isInstanceOf(IndexOutOfBoundsException.class);
     }
+
+    @DisplayName("add(int, String): null을 추가하는 경우")
+    @Test
+    void addNullValue() {
+        values.add(0, null);
+        assertThat(values.get(0)).isNull();
+    }
 }
