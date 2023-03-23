@@ -105,4 +105,21 @@ public class ListStudyTest {
         //then
         assertThat(values.isEmpty()).isTrue();
     }
+
+    @DisplayName("remove(int)를 했을 때 요소가 null 일 경우")
+    @Test
+    void removeNullValue() {
+        //given
+        List<String> values = new ArrayList<>();
+        values.add(null);
+        String removed = values.remove(0);
+        assertThat(removed).isNull();
+    }
+
+    @DisplayName("remove(int): 올바르지 않은 인덱스일 경우")
+    @Test
+    void removeByInvalidIndex() {
+        assertThatThrownBy(() -> values.remove(10))
+                .isInstanceOf(IndexOutOfBoundsException.class);
+    }
 }
