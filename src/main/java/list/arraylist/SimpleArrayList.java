@@ -6,18 +6,23 @@ public class SimpleArrayList implements SimpleList {
 
     private static final int DEFAULT_CAPACITY = 10;
 
-    String[] array = new String[DEFAULT_CAPACITY];
+    private String[] array = new String[DEFAULT_CAPACITY];
     private int capacity = DEFAULT_CAPACITY;
     private int size = 0;
 
     @Override
     public boolean add(String value) {
+        if (array.length == size) {
+            applyNewCapacity();
+        }
         array[size++] = value;
+        return true;
+    }
+
+    private void applyNewCapacity() {
         int newCapacity = (int) (capacity * 1.5);
         array = Arrays.copyOf(array, newCapacity);
-        array[capacity] = value;
         capacity = newCapacity;
-        return true;
     }
 
     @Override

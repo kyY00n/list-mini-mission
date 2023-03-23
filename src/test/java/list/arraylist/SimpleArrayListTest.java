@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -19,6 +20,26 @@ class SimpleArrayListTest {
     @BeforeEach
     void setUp() {
         arrayList = new SimpleArrayList();
+    }
+
+    @DisplayName("배열이 꽉차면 capacity가 1.5배로 늘어난다.")
+    @Test
+    void addConsecutively() {
+        //given
+        //when
+        for (int i = 0; i < 100; i++) {
+            arrayList.add("hey");
+        }
+        //then
+        int result = 10;
+        for (int i = 0; i < 100; i++) {
+            if (i == result) {
+                result = (int) (result * 1.5);
+            }
+        }
+        assertThat(arrayList)
+                .extracting("array", InstanceOfAssertFactories.array(String[].class))
+                .hasSize(result);
     }
 
     @DisplayName("add는")
